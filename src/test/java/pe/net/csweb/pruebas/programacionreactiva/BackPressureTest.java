@@ -81,5 +81,42 @@ public class BackPressureTest {
 				}
 			});
 	}
+	
+	@Test
+	void testBackPressureBuffer() {
+
+		Flux<Integer> numbers = Flux.range(1, 100).log();
+
+		// numbers.subscribe(entero -> System.out.println(entero));
+
+		numbers
+				.onBackpressureBuffer(10, 
+					i -> System.out.println("Buffered value = " + i))
+				.subscribe(new BaseSubscriber<Integer>() {
+
+				@Override
+				protected void hookOnSubscribe(Subscription subscription) {
+					request(3);
+				}
+	
+				@Override
+				protected void hookOnNext(Integer value) {
+					System.out.println("valor = " + value);
+	
+					if (value == 3) hookOnCancel();
+	
+				}
+	
+				@Override
+				protected void hookOnComplete() {
+					System.out.println("Completed!!");
+				}
+	
+				@Override
+				protected void hookOnCancel() {
+					super.hookOnCancel();
+				}
+			});
+	}
 
 }
