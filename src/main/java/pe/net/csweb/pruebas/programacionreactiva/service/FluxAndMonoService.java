@@ -123,6 +123,21 @@ public class FluxAndMonoService {
 				.concatWith(Mono.just("Tomate")) 
 				.log();
 	}
+	
+	public Flux<String> frutasFluxMerge() {
+		return Flux.merge(
+					Flux.just("Mango", "Naranja").delayElements(Duration.ofMillis(50)), 
+					Flux.just("Tomate", "Limón").delayElements(Duration.ofMillis(75)))
+				.log();
+	}
+	
+	public Flux<String> frutasFluxMergeWith() {
+		return Flux.just("Mango", "Naranja").delayElements(Duration.ofMillis(50))
+				.mergeWith(
+						Flux.just("Tomate", "Limón").delayElements(Duration.ofMillis(75))
+						)
+				.log();
+	}
 
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();

@@ -126,4 +126,20 @@ public class FluxAndMonoServiceTest {
 		.expectNext("Mango", "Tomate")
 		.verifyComplete();
 	}
+	
+	@Test
+	void frutasFluxMerge() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxMerge())
+		.expectNext("Mango", "Tomate", "Naranja", "Limón")
+		.verifyComplete();
+		
+	}
+	
+	@Test
+	void frutasFluxMergeWith() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxMergeWith())
+		.expectNext("Mango", "Tomate", "Naranja", "Limón")
+		.verifyComplete();
+	}
+	
 }
