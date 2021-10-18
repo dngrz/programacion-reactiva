@@ -197,4 +197,12 @@ public class FluxAndMonoServiceTest {
 		.expectNext("MANZANA", "NARANJA")
 		.verifyComplete();		
 	}
+	
+	@Test
+	void frutasFluxOnErrorMap() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxOnErrorMap().log())
+		.expectNext("MANZANA")
+		.expectError(IllegalStateException.class)
+		.verify();
+	}
 }

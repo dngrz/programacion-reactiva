@@ -212,6 +212,18 @@ public class FluxAndMonoService {
 				});
 	}
 	
+	public Flux<String> frutasFluxOnErrorMap(){
+		return Flux.just("Manzana", "Mango", "Naranja")
+				.map(s -> {
+					if(s.equalsIgnoreCase("Mango"))
+						throw new RuntimeException("Excepcion Mango");
+					return s.toUpperCase();
+				})
+				.onErrorMap(throwable -> {
+					System.out.println("throwable = " + throwable);
+					return new IllegalStateException("Excepcion desde onErrorMap");
+				});
+	}
 	public static void main(String[] args) {
 		
 		FluxAndMonoService fluxAndMonoService = new FluxAndMonoService();
