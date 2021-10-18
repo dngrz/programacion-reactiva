@@ -2,6 +2,7 @@ package pe.net.csweb.pruebas.programacionreactiva.service;
 
 import org.junit.jupiter.api.Test;
 
+import reactor.core.publisher.Flux;
 import reactor.test.StepVerifier;
 
 public class FluxAndMonoServiceTest {
@@ -102,6 +103,27 @@ public class FluxAndMonoServiceTest {
 	void frutasFluxTransformSwitchIfEmpty() {
 		StepVerifier.create(fluxAndMonoService.frutasFluxTransformSwitchIfEmpty(7))
 		.expectNext("Ceresita", "Arándano")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasFluxConcat() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxConcat())
+		.expectNext("Mango", "Naranja", "Tomate", "Limón")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasFluxConcatWith() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxConcatWith())
+		.expectNext("Mango", "Naranja", "Tomate", "Limón")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasMonoConcatWith() {
+		StepVerifier.create(fluxAndMonoService.frutasMonoConcatWith())
+		.expectNext("Mango", "Tomate")
 		.verifyComplete();
 	}
 }

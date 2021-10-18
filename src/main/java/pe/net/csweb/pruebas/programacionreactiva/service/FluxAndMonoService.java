@@ -107,6 +107,23 @@ public class FluxAndMonoService {
 				.log();
 	}
 	
+	public Flux<String> frutasFluxConcat() {
+		return Flux.concat(Flux.just("Mango", "Naranja"), Flux.just("Tomate", "Limón"))
+				.log();
+	}
+	
+	public Flux<String> frutasFluxConcatWith() {
+		return Flux.just("Mango", "Naranja")
+				.concatWith(Flux.just("Tomate", "Limón")) 
+				.log();
+	}
+
+	public Flux<String> frutasMonoConcatWith() {
+		return Mono.just("Mango")
+				.concatWith(Mono.just("Tomate")) 
+				.log();
+	}
+
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();
 	}
