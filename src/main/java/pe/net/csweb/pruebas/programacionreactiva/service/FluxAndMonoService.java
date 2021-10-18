@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -73,6 +74,15 @@ public class FluxAndMonoService {
 				.log();
 	}
 
+	public Flux<String> frutasFluxTransform(int caracteres) {
+		
+		Function<Flux<String>, Flux<String>> filterData
+			= data -> data.filter(s -> s.length() > caracteres);
+		
+		return Flux.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
+				.transform(filterData)
+				.log();
+	}
 
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();

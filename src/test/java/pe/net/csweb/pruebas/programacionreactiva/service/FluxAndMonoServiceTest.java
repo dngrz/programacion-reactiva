@@ -83,4 +83,11 @@ public class FluxAndMonoServiceTest {
 		.expectNextCount(5)
 		.verifyComplete();		
 	}
+	
+	@Test
+	void frutasFluxTransform() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxTransform(5))
+		.expectNext("Manzana", "Plátano")
+		.verifyComplete();		
+	}
 }
