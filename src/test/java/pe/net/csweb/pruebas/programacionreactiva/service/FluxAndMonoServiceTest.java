@@ -49,4 +49,25 @@ public class FluxAndMonoServiceTest {
 		.verifyComplete();
 	}
 	
+	@Test
+	void frutasFlatMap() {
+		StepVerifier.create(fluxAndMonoService.frutasFlatMap())
+			.expectNextCount(19)
+			.verifyComplete();
+	}
+	
+	@Test
+	void frutasFlatMapAsync() {
+		StepVerifier.create(fluxAndMonoService.frutasFlatMap())
+			.expectNextCount(19)
+			.verifyComplete();
+	}
+	
+	@Test
+	void frutaMonoFlatMap() {
+		StepVerifier.create(fluxAndMonoService.frutaMonoFlatMap())
+		.expectNextCount(1)
+		.verifyComplete();
+	}
+	
 }

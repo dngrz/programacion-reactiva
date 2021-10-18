@@ -1,6 +1,9 @@
 package pe.net.csweb.pruebas.programacionreactiva.service;
 
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -29,6 +32,30 @@ public class FluxAndMonoService {
 				.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
 				.filter(s -> s.length() > caracteres)
 				.map(String::toUpperCase);
+	}
+	
+	public Flux<String> frutasFlatMap(){
+		return Flux
+				.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
+				.flatMap(s -> Flux.just(s.split("")))
+				.log();
+		
+	}
+
+	public Flux<String> frutasFlatMapAsync(){
+		return Flux
+				.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
+				.flatMap(s -> Flux.just(s.split(""))
+						.delayElements(
+								Duration.ofMillis(new Random().nextInt(1000)
+						)))
+				.log();
+	}
+
+	public Mono<List<String>> frutaMonoFlatMap(){
+		return Mono.just("Mango")
+				.flatMap(s -> Mono.just(Arrays.asList(s.split(""))))
+				.log();
 	}
 
 	public Mono<String> frutaMono(){
