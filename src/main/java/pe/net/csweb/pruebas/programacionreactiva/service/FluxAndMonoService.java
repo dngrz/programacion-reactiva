@@ -190,6 +190,15 @@ public class FluxAndMonoService {
 				;
 	}
 	
+	public Flux<String> frutasFluxOnErrorReturn(){
+		return Flux.just("Manzana", "Mango")
+				.concatWith(
+						Flux.error(new RuntimeException("Ocurrió una Excepción")
+				))
+				.onErrorReturn("Naranja")
+				;
+	}
+	
 	public static void main(String[] args) {
 		
 		FluxAndMonoService fluxAndMonoService = new FluxAndMonoService();
