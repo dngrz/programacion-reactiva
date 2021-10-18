@@ -142,4 +142,11 @@ public class FluxAndMonoServiceTest {
 		.verifyComplete();
 	}
 	
+	@Test
+	void frutasFluxMergeWithSequential() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxMergeWithSequential().log())
+		.expectNext("Mango", "Naranja", "Tomate", "Limón")
+		.verifyComplete();
+	}
+	
 }

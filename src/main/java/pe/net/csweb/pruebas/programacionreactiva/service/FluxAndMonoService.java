@@ -139,6 +139,13 @@ public class FluxAndMonoService {
 				.log();
 	}
 
+	public Flux<String> frutasFluxMergeWithSequential() {
+		return Flux.mergeSequential(
+				Flux.just("Mango", "Naranja").delayElements(Duration.ofMillis(50)),
+				Flux.just("Tomate", "Limón").delayElements(Duration.ofMillis(75))
+				);
+	}
+
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();
 	}
