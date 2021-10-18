@@ -84,6 +84,17 @@ public class FluxAndMonoService {
 				.log();
 	}
 
+	public Flux<String> frutasFluxTransformDefaultIfEmpty(int caracteres) {
+		
+		Function<Flux<String>, Flux<String>> filterData
+			= data -> data.filter(s -> s.length() > caracteres);
+		
+		return Flux.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
+				.transform(filterData)
+				.defaultIfEmpty("Default")
+				.log();
+	}
+	
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();
 	}

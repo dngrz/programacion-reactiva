@@ -90,4 +90,11 @@ public class FluxAndMonoServiceTest {
 		.expectNext("Manzana", "Plátano")
 		.verifyComplete();		
 	}
+	
+	@Test
+	void frutasFluxTransformDefaultIfEmpty() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxTransformDefaultIfEmpty(10))
+		.expectNext("Default")
+		.verifyComplete();
+	}
 }
