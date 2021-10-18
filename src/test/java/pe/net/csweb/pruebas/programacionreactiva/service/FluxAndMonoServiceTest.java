@@ -149,4 +149,31 @@ public class FluxAndMonoServiceTest {
 		.verifyComplete();
 	}
 	
+	@Test
+	void frutasFluxZip() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxZip().log())
+		.expectNext("MangoTomate", "NaranjaLimón")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasFluxZipWith() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxZipWith().log())
+		.expectNext("MangoTomate", "NaranjaLimón")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasFluxZipTuple() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxZipTuple().log())
+		.expectNext("MangoTomatePapa", "NaranjaLimónFrijol")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasMonoZipWith() {
+		StepVerifier.create(fluxAndMonoService.frutasMonoZipWith().log())
+		.expectNext("MangoTomate")
+		.verifyComplete();
+	}
 }

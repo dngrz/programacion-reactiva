@@ -145,6 +145,32 @@ public class FluxAndMonoService {
 				Flux.just("Tomate", "Limón").delayElements(Duration.ofMillis(75))
 				);
 	}
+	
+	public Flux<String> frutasFluxZip() {
+		return Flux.zip(
+				Flux.just("Mango", "Naranja"), Flux.just("Tomate", "Limón"),
+				(first, second) -> first + second);
+	}
+
+	public Flux<String> frutasFluxZipWith() {
+		return Flux.just("Mango", "Naranja")
+					.zipWith( Flux.just("Tomate", "Limón"),
+							(first, second) -> first + second);
+	}
+
+	public Flux<String> frutasFluxZipTuple() {
+		return Flux.zip(
+				Flux.just("Mango", "Naranja"), 
+				Flux.just("Tomate", "Limón"),
+				Flux.just("Papa", "Frijol"))
+				.map(objects -> objects.getT1() + objects.getT2() + objects.getT3());
+	}
+	
+	public Mono<String> frutasMonoZipWith() {
+		return Mono.just("Mango")
+					.zipWith( Mono.just("Tomate"),
+							(first, second) -> first + second);
+	}
 
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();
