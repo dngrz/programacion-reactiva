@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.extern.slf4j.Slf4j;
 import pe.net.csweb.pruebas.programacionreactiva.domain.BookBean;
+import pe.net.csweb.pruebas.programacionreactiva.domain.BookInfoBean;
 import pe.net.csweb.pruebas.programacionreactiva.domain.ReviewBean;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -31,7 +32,14 @@ public class BookService {
 			
 				})
 				.log();
-	
-		
 	}
+	
+	public Mono<BookBean> getBookById(long bookId) {
+
+		Mono<BookInfoBean> book = bookInfoService.getBookById(bookId);
+		Mono<List<ReviewBean>> review = reviewService.getReviews(bookId).collectList();
+		
+		return book.zipWith(review, (b,r) -> new BookBean(b, r));
+	}
+	
 }

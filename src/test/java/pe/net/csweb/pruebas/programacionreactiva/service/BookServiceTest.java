@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import pe.net.csweb.pruebas.programacionreactiva.domain.BookBean;
+import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 public class BookServiceTest {
@@ -32,5 +34,19 @@ public class BookServiceTest {
 			assertEquals( 2, book.getReviews().size());
 		})
 		.verifyComplete();
+	}
+	
+	@Test
+	void getBookById() {
+		
+		Mono<BookBean> book = bookService.getBookById(1).log();
+		
+		StepVerifier.create(book)
+		.assertNext(b ->  {
+			assertEquals( "Book uno", b.getBookInfo().getTitle());
+			assertEquals( 2, b.getReviews().size());
+		})
+		.verifyComplete();
+		
 	}
 }
