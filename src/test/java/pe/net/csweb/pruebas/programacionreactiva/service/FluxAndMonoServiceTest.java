@@ -32,4 +32,21 @@ public class FluxAndMonoServiceTest {
 		.expectNext("MANGO", "MANZANA", "PLÁTANO")
 		.verifyComplete();
 	}
+	
+	@Test
+	void frutasFluxFilter() {
+		
+		StepVerifier.create(fluxAndMonoService.frutasFluxFilter(5))
+		.expectNext("Manzana", "Plátano")
+		.verifyComplete();
+	}
+	
+	@Test
+	void frutasFluxFilterMap() {
+		
+		StepVerifier.create(fluxAndMonoService.frutasFluxFilterMap(5))
+		.expectNext("MANZANA", "PLÁTANO")
+		.verifyComplete();
+	}
+	
 }
