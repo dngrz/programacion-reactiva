@@ -66,6 +66,13 @@ public class FluxAndMonoService {
 				.flatMap(s -> Mono.just(Arrays.asList(s.split(""))))
 				.log();
 	}
+	
+	public Flux<String> frutaMonoFlatMapMany(){
+		return Mono.just("Mango")
+				.flatMapMany(s -> Flux.just(s.split("")))
+				.log();
+	}
+
 
 	public Mono<String> frutaMono(){
 		return Mono.just("Mango").log();

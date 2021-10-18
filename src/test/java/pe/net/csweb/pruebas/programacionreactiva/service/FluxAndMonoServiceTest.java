@@ -76,4 +76,11 @@ public class FluxAndMonoServiceTest {
 		.expectNextCount(19)
 		.verifyComplete();		
 	}
+	
+	@Test
+	void frutaMonoFlatMapMany() {
+		StepVerifier.create(fluxAndMonoService.frutaMonoFlatMapMany())
+		.expectNextCount(5)
+		.verifyComplete();		
+	}
 }
