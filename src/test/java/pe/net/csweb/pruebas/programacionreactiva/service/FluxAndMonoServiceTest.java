@@ -70,4 +70,10 @@ public class FluxAndMonoServiceTest {
 		.verifyComplete();
 	}
 	
+	@Test
+	void frutasConcatMap() {
+		StepVerifier.create(fluxAndMonoService.frutasConcatMap())
+		.expectNextCount(19)
+		.verifyComplete();		
+	}
 }
