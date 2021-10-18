@@ -205,4 +205,12 @@ public class FluxAndMonoServiceTest {
 		.expectError(IllegalStateException.class)
 		.verify();
 	}
+	
+	@Test
+	void frutasFluxOnError() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxOnError().log())
+		.expectNext("MANZANA")
+		.expectError(RuntimeException.class)
+		.verify();
+	}
 }
