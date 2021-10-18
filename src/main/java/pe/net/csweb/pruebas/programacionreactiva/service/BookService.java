@@ -40,6 +40,25 @@ public class BookService {
 				.log();
 	}
 	
+	public Flux<BookBean> getBooksRetry(){
+		
+		return bookInfoService.getBooks()
+				.flatMap(bookInfo -> {
+					Mono<List<ReviewBean>> reviews 
+						= reviewService.getReviews(bookInfo.getBookId()).collectList();
+					return reviews
+							.map(review -> new BookBean(bookInfo, review));
+			
+				})
+				.onErrorMap(throwable -> {
+					
+					log.error("Exception :: " + throwable);
+					return new BookException("Excepcion ocurrida mientras se recuperan los datos");
+				})
+				.retry(3)
+				.log();
+	}
+	
 	public Mono<BookBean> getBookById(long bookId) {
 
 		Mono<BookInfoBean> book = bookInfoService.getBookById(bookId);
