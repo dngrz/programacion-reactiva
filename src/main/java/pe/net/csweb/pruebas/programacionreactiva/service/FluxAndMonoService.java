@@ -176,6 +176,20 @@ public class FluxAndMonoService {
 		return Mono.just("Mango").log();
 	}
 	
+	public Flux<String> frutasFluxFilterDoOn(int caracteres) {
+		return Flux
+				.fromIterable(Arrays.asList("Mango", "Manzana", "Plátano"))
+				.filter(s -> s.length() > caracteres)
+				.doOnNext(s -> {
+					System.out.println("s = " + s);
+				})
+				.doOnSubscribe(subscription -> {
+					System.out.println("subscription = " + subscription.toString());
+				})
+				.doOnComplete(() -> System.out.println("Completado!"))
+				;
+	}
+	
 	public static void main(String[] args) {
 		
 		FluxAndMonoService fluxAndMonoService = new FluxAndMonoService();

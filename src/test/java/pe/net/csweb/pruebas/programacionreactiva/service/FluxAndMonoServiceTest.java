@@ -176,4 +176,11 @@ public class FluxAndMonoServiceTest {
 		.expectNext("MangoTomate")
 		.verifyComplete();
 	}
+	
+	@Test
+	void frutasFluxFilterDoOn() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxFilterDoOn(5).log())
+		.expectNext("Manzana", "Plátano")
+		.verifyComplete();
+	}
 }
