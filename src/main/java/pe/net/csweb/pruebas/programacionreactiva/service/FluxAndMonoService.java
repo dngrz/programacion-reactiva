@@ -199,6 +199,19 @@ public class FluxAndMonoService {
 				;
 	}
 	
+	public Flux<String> frutasFluxOnErrorContinue(){
+		return Flux.just("Manzana", "Mango", "Naranja")
+				.map(s -> {
+					if(s.equalsIgnoreCase("Mango"))
+						throw new RuntimeException("Excepcion Mango");
+					return s.toUpperCase();
+				})
+				.onErrorContinue((e,f) -> {
+					System.out.println("e = " + e);
+					System.out.println("f = " + f);
+				});
+	}
+	
 	public static void main(String[] args) {
 		
 		FluxAndMonoService fluxAndMonoService = new FluxAndMonoService();

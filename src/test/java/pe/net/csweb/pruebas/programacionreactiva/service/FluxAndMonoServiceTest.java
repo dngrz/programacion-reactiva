@@ -190,4 +190,11 @@ public class FluxAndMonoServiceTest {
 		.expectNext("Manzana", "Mango", "Naranja")
 		.verifyComplete();
 	}
+	
+	@Test
+	void frutasFluxOnErrorContinue() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxOnErrorContinue().log())
+		.expectNext("MANZANA", "NARANJA")
+		.verifyComplete();		
+	}
 }
