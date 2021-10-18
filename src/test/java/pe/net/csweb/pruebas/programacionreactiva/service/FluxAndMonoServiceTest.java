@@ -25,4 +25,11 @@ public class FluxAndMonoServiceTest {
 		.verifyComplete();
 		
 	}
+	
+	@Test
+	void frutasFluxMap() {
+		StepVerifier.create(fluxAndMonoService.frutasFluxMap())
+		.expectNext("MANGO", "MANZANA", "PLÁTANO")
+		.verifyComplete();
+	}
 }
