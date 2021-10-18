@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import pe.net.csweb.pruebas.programacionreactiva.domain.BookBean;
 import pe.net.csweb.pruebas.programacionreactiva.domain.BookInfoBean;
 import pe.net.csweb.pruebas.programacionreactiva.domain.ReviewBean;
+import pe.net.csweb.pruebas.programacionreactiva.exception.BookException;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -30,6 +31,11 @@ public class BookService {
 					return reviews
 							.map(review -> new BookBean(bookInfo, review));
 			
+				})
+				.onErrorMap(throwable -> {
+					
+					log.error("Exception :: " + throwable);
+					return new BookException("Excepcion ocurrida mientras se recuperan los datos");
 				})
 				.log();
 	}
