@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ReviewBean {
 
-	private String reviewId;
-	private String bookId;
+	private long reviewId;
+	private long bookId;
 	private double rating;
 	private String comments;
 
