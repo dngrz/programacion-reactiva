@@ -34,6 +34,7 @@ public class HotAndColdStreamsTest {
 		publisher.subscribe(entero -> System.out.println("Subscriber 1 = " + entero));
 		Thread.sleep(4000);
 		publisher.subscribe(entero -> System.out.println("Subscriber 2 = " + entero));
+		Thread.sleep(10000);
 		
 	}
 
