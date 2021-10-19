@@ -3,7 +3,9 @@ package pe.net.csweb.pruebas.programacionreactiva.service;
 import org.junit.jupiter.api.Test;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Hooks;
 import reactor.test.StepVerifier;
+import reactor.tools.agent.ReactorDebugAgent;
 
 public class FluxAndMonoServiceTest {
 	
@@ -200,6 +202,9 @@ public class FluxAndMonoServiceTest {
 	
 	@Test
 	void frutasFluxOnErrorMap() {
+		//Hooks.onOperatorDebug();
+		ReactorDebugAgent.init();
+		ReactorDebugAgent.processExistingClasses();
 		StepVerifier.create(fluxAndMonoService.frutasFluxOnErrorMap().log())
 		.expectNext("MANZANA")
 		.expectError(IllegalStateException.class)
